@@ -1,59 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Falling Leaves Animation</title>
-<style>
-  body {
-    margin: 0;
-    overflow: hidden;
-    background: #f0f8ff;
-    font-family: sans-serif;
-  }
-  .leaf {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    animation: fall linear infinite;
-    pointer-events: none;
-  }
-  @keyframes fall {
-    0% {
-      transform: translateY(-100px) rotate(0deg);
-      opacity: 1;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Falling Leaves</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #f0f8ff;
     }
-    100% {
-      transform: translateY(100vh) rotate(360deg);
-      opacity: 0;
+    .leaf {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA...'); /* shortened */
+      animation: fall linear infinite;
+      pointer-events: none;
     }
-  }
-</style>
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<script>
-  const numLeaves = 15;
-  const leaves = [];
-  const leafImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAa0AAAGtCAYAAADGE2S..."; // shortened for display
-
-  const createLeaf = () => {
-    const leaf = document.createElement('div');
-    leaf.className = 'leaf';
-    leaf.style.left = `${Math.random() * 100}vw`;
-    leaf.style.animationDuration = `${3 + Math.random() * 4}s`;
-    leaf.style.animationDelay = `${Math.random() * 3}s`;
-    leaf.style.backgroundImage = `url(${leafImageUrl})`;
-    document.body.appendChild(leaf);
-    leaves.push(leaf);
-  };
-
-  for (let i = 0; i < numLeaves; i++) {
-    createLeaf();
-  }
-</script>
-
+  <script>
+    const numLeaves = 30; // more leaves!
+    for (let i = 0; i < numLeaves; i++) {
+      const leaf = document.createElement('div');
+      leaf.className = 'leaf';
+      leaf.style.left = `${(i * 100 / numLeaves) + Math.random() * 3}vw`;
+      leaf.style.animationDuration = `${3 + Math.random() * 4}s`;
+      leaf.style.animationDelay = `${Math.random() * 5}s`;
+      document.body.appendChild(leaf);
+    }
+  </script>
 </body>
 </html>
