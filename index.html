@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: transparent;
+    }
+    .leaf {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-image: url('https://i.ibb.co/NFvCyWt/curry-leaf.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const numLeaves = 12;
+    for (let i = 0; i < numLeaves; i++) {
+      const leaf = document.createElement('div');
+      leaf.className = 'leaf';
+      leaf.style.left = `${Math.random() * 100}vw`;
+      leaf.style.animationDuration = `${3 + Math.random() * 4}s`;
+      leaf.style.animationDelay = `${Math.random() * 3}s`;
+      document.body.appendChild(leaf);
+    }
+  </script>
+</body>
+</html>
