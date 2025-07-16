@@ -3,20 +3,32 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Falling Leaves Animation with Upload</title>
 <style>
   body {
     margin: 0;
     overflow: hidden;
-    background: transparent;
+    background: #f0f8ff;
+    font-family: sans-serif;
+  }
+  #upload-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background: rgba(255,255,255,0.9);
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 5px #aaa;
   }
   .leaf {
     position: absolute;
     width: 40px;
     height: 40px;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Leaf_icon.svg/1024px-Leaf_icon.svg.png');
     background-size: contain;
     background-repeat: no-repeat;
     animation: fall linear infinite;
+    pointer-events: none;
   }
   @keyframes fall {
     0% {
@@ -31,16 +43,49 @@
 </style>
 </head>
 <body>
+
+<div id="upload-container">
+  <label for="leaf-upload" style="cursor:pointer; font-weight:bold;">Upload Leaf Image: </label>
+  <input type="file" id="leaf-upload" accept="image/*" />
+</div>
+
 <script>
-  const numLeaves = 12;
-  for (let i = 0; i < numLeaves; i++) {
+  const numLeaves = 15;
+  const leaves = [];
+  let leafImageUrl = null;
+
+  const createLeaf = () => {
     const leaf = document.createElement('div');
     leaf.className = 'leaf';
     leaf.style.left = `${Math.random() * 100}vw`;
     leaf.style.animationDuration = `${3 + Math.random() * 4}s`;
     leaf.style.animationDelay = `${Math.random() * 3}s`;
+    leaf.style.backgroundImage = `url(${leafImageUrl})`;
     document.body.appendChild(leaf);
-  }
+    leaves.push(leaf);
+  };
+
+  const clearLeaves = () => {
+    leaves.forEach(leaf => leaf.remove());
+    leaves.length = 0;
+  };
+
+  document.getElementById('leaf-upload').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Clear existing leaves
+    clearLeaves();
+
+    // Create URL for the uploaded image
+    leafImageUrl = URL.createObjectURL(file);
+
+    // Create leaves with the uploaded image
+    for (let i = 0; i < numLeaves; i++) {
+      createLeaf();
+    }
+  });
 </script>
+
 </body>
 </html>
