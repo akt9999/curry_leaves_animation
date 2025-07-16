@@ -3,23 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Falling Leaves Animation with Upload</title>
+<title>Falling Leaves Animation</title>
 <style>
   body {
     margin: 0;
     overflow: hidden;
     background: #f0f8ff;
     font-family: sans-serif;
-  }
-  #upload-container {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
-    background: rgba(255,255,255,0.9);
-    padding: 10px;
-    border-radius: 6px;
-    box-shadow: 0 0 5px #aaa;
   }
   .leaf {
     position: absolute;
@@ -44,15 +34,10 @@
 </head>
 <body>
 
-<div id="upload-container">
-  <label for="leaf-upload" style="cursor:pointer; font-weight:bold;">Upload Leaf Image: </label>
-  <input type="file" id="leaf-upload" accept="image/*" />
-</div>
-
 <script>
   const numLeaves = 15;
   const leaves = [];
-  let leafImageUrl = null;
+  const leafImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAa0AAAGtCAYAAADGE2S..."; // shortened for display
 
   const createLeaf = () => {
     const leaf = document.createElement('div');
@@ -65,26 +50,9 @@
     leaves.push(leaf);
   };
 
-  const clearLeaves = () => {
-    leaves.forEach(leaf => leaf.remove());
-    leaves.length = 0;
-  };
-
-  document.getElementById('leaf-upload').addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    // Clear existing leaves
-    clearLeaves();
-
-    // Create URL for the uploaded image
-    leafImageUrl = URL.createObjectURL(file);
-
-    // Create leaves with the uploaded image
-    for (let i = 0; i < numLeaves; i++) {
-      createLeaf();
-    }
-  });
+  for (let i = 0; i < numLeaves; i++) {
+    createLeaf();
+  }
 </script>
 
 </body>
